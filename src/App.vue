@@ -2,13 +2,18 @@
 
 <h1>Home</h1>
 
-  <MyAcc :accordionContent="content" />
+  <MyAccSingle :accordionContent="content" />
+  
+  <hr />
+
+  <MyAccMulti :accordionContent="content" />
 
 </template>
 
 <script>
 
-import MyAcc from "@/components/MyAcc.vue"
+import MyAccSingle from "@/components/MyAccSingle.vue"
+import MyAccMulti from "@/components/MyAccMulti.vue"
 
 export default {
 
@@ -22,7 +27,7 @@ export default {
       ]
     }
   },
-  components: { MyAcc }
+  components: { MyAccSingle, MyAccMulti }
 }
 
 </script>
@@ -36,6 +41,10 @@ export default {
   justify-content:flex-start;
   height: 100vh;
   font-family: system-ui;
+}
+
+hr {
+  width: 100%;
 }
 
 </style>

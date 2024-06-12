@@ -3,16 +3,7 @@
     <div class="container">
 
         <template v-for="(item, index) in accordionContent" :key="index">
-
-            <div class="header" @click="onOpened(index)">
-                <div class="header-title">{{ item.title }}</div>
-                <img :src="arrow" class="arrow" :class="{ closed: isOpen(index) }" alt="arrow">
-            </div>
-
-            <transition name="efect">
-                <div v-if="isOpen(index)" class="content">{{ item.content }}</div>
-            </transition>
-
+            <MyAccItem :item="item" :index="index" :openedIndex="openedIndex" @click="onOpened" />
         </template>
 
     </div>
@@ -22,10 +13,10 @@
 <script>
 
 import arrowImg from "@/assets/arrow.svg"
+import MyAccItem from "@/components/MyAccItem.vue"
 
 export default {
-
-    name: 'MyAcc',
+    name: 'MyAccMulti',
     props: {
         accordionContent: Array,
     },
@@ -37,11 +28,15 @@ export default {
     },
     methods: {
         onOpened(index) {
+            if (this.openedIndex === index) {
+                this.openedIndex = -1;
+                return;
+            }
             this.openedIndex = index;
-        },
-        isOpen(index) {
-            return this.openedIndex === index;
         }
+    },
+    components: {
+        MyAccItem
     }
 }
 
