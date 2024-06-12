@@ -2,7 +2,7 @@
 
 <h1>Home</h1>
 
-  <MyAcc :accordionContent="content"/>
+  <MyAcc :accordionContent="content" @clicked="onClick" :isOpen="isOpened"/>
 
 </template>
 
@@ -11,6 +11,7 @@
 import MyAcc from "@/components/MyAcc.vue"
 
 export default {
+
   name: 'App',
   data () {
     return {
@@ -18,13 +19,18 @@ export default {
         {title: "První Item", content: "První content itemu prvního", },
         {title: "Druhý Item", content: "Druhý content itemu druhého", },
         {title: "Třetí Item", content: "Třetí content itemu třetího", }
-      ]
+      ],
+      isOpened: true
+    }
+  },
+  methods: {
+    onClick (index) {
+      console.log(this.content[index].title + index)
+      this.isOpened = !this.isOpened
     }
   },
   components: { MyAcc }
 }
-
-
 
 </script>
 

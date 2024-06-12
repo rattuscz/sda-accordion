@@ -1,37 +1,41 @@
 <template>
+
     <div class="container">
+
         <template v-for="(item, index) in accordionContent" :key="index">
-            <div class="header" @click="clicked">
+
+            <div class="header" @click="$emit('clicked', index)">
                 <div class="header-title">{{ item.title }}</div>
-                <img :src="arrow" class="arrow" :class="{closed: opened}">
+                <img :src="arrow" class="arrow" :class="{closed: isOpen}" alt="">
             </div>
+
             <transition name="efect">
-                <div v-if="opened" class="content">{{ item.content }}</div>
+
+                <div v-if="isOpen" class="content">{{ item.content }}</div>
+
             </transition>
+
         </template>
+
     </div>
+
 </template>
 
 <script>
 
-
-import arrow from "@/assets/arrow.svg"
+import arrowImg from "@/assets/arrow.svg"
 
 export default {
+
     name: 'MyAcc',
     props: {
-        accordionContent: Array
+        accordionContent: Array,
+        isOpen: Boolean
     },
     data () {
         return {
-            opened: true,
-            arrow: arrow
-        }
-    },
-    methods: {
-        clicked() {
-            this.opened = !this.opened
-            
+            opened: false,
+            arrow: arrowImg
         }
     }
 }
@@ -39,9 +43,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 
 .container {
     display: flex;
