@@ -3,7 +3,7 @@
     <div class="container">
 
         <template v-for="(item, index) in accordionContent" :key="index">
-            <MyAccItem :item="item" :index="index" :openedIndex="openedIndex" @click="onOpened" />
+            <MyAccItem :item="item" :index="index" @opened="onOpen" @closed="onClosed" />
         </template>
 
     </div>
@@ -23,17 +23,16 @@ export default {
     data() {
         return {
             arrow: arrowImg,
-            openedIndex: 0,
         }
     },
     methods: {
-        onOpened(index) {
-            if (this.openedIndex === index) {
-                this.openedIndex = -1;
-                return;
-            }
-            this.openedIndex = index;
+        onOpen(index) {
+            console.log("onOpen ", index);
+        },
+        onClosed(index) {
+            console.log("closed ", index);
         }
+        
     },
     components: {
         MyAccItem

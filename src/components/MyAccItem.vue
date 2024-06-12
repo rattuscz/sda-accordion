@@ -1,10 +1,10 @@
 <template>
-    <div class="header" @click="$emit('click', index)">
+    <div class="header" @click="onClick">
         <div class="header-title">{{ item.title }}</div>
         <img :src="arrow" class="arrow" :class="{ closed: isOpen }" alt="arrow">
     </div>
 
-    <transition name="efect">
+    <transition name="slide-up">
         <div v-if="isOpen" class="content">{{ item.content }}</div>
     </transition>
 </template>
@@ -18,16 +18,27 @@ export default {
     props: {
         item: Object,
         index: Number,
-        openedIndex: Number,
+    },
+    emits: ['opened', 'closed'],
+    data() {
+        return {
+            opened: false,
+        }
     },
     computed: {
         arrow() {
             return arrowImg;
         },
         isOpen() {
-            return this.openedIndex === this.index;
+            return this.opened;
         }
     },
+    methods: {
+        onClick() {
+            this.opened = !this.opened;
+            this.$emit( this.opened ? 'opened' : 'closed', this.index);
+        }
+    }
 }
 
 </script>
@@ -56,6 +67,20 @@ export default {
     transition: all .3s linear
 }
 
+/* slide-up VUE translation */
+.slide-up-enter-active {
+    transition: all 0.6s ease;
+}
+.slide-up-leave-active {
+    transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-up-enter,
+.slide-up-leave-to {
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+
 .efect-enter-from,
 .efect-leave-to {
     max-height: 0;
@@ -71,6 +96,6 @@ export default {
 }
 
 .efect-leave-active {
-    animation: all .5s linear
+    transition: all .5s linear
 }
 </style>

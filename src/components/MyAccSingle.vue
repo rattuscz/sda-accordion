@@ -98,6 +98,6 @@ export default {
 }
 
 .efect-leave-active {
-    animation: all .5s linear
+    transition: all .5s linear
 }
 </style>
